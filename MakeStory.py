@@ -152,7 +152,7 @@ def main(**argv):
     random.shuffle(scenesWith)
 
     wordsPerScene = int(minWordCount / len(characterMap["scenesWith"])) + 1
-    characters = characterMap["mainCharacters"]
+    characters = characterMap["mainCharacters"].copy() 
     characters.update(characterMap["secondaryCharacters"])
 
     for s in scenesWith:
@@ -203,7 +203,8 @@ def getTags(indexFile):
 
     for i in indexFile:
         for t in indexFile[i]["tags"]:
-            tags.add(t)
+            if not t.isspace() and not t == '':
+                tags.add(t)
 
     return tags
 
