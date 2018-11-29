@@ -1,0 +1,6 @@
+*.txt
+
+.vscode/*
+Data/*
+Input/*
+ToBeProcessed/*
