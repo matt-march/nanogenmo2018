@@ -190,7 +190,10 @@ def main(**argv):
     novelTitle = random.choice(sceneTitles)
     novel = novelTitle + "\n\n\n\n" + novel
 
-    with open(novelTitle + ".txt", 'wb') as output:
+    if not path.exists("Novels"):
+        os.mkdir("Novels")
+
+    with open(path.join("Novels", novelTitle + ".txt"), 'wb') as output:
         output.write(novel.replace("\n", os.linesep).encode("utf-8"))
 
     print("done writing " + novelTitle)
