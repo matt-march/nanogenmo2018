@@ -142,11 +142,18 @@ def main(**argv):
     scenes = []
     scenesWith = list(characterMap["scenesWith"])
     scenesWith2 = list()
-    mainNames = list(characterMap["mainCharacters"].keys())
+    # mainNames = list(characterMap["mainCharacters"].keys())
     # secondaryNames = list(characterMap["secondaryCharacters"].keys())
-    for s in scenesWith:
-        if s[0] in mainNames and s[1] in mainNames:
-            scenesWith2.append(s)
+    
+    for m in characterMap["mainCharacters"]:
+        otherMains = list(filter(lambda x: m is not x, characterMap["mainCharacters"].keys()))
+        for n in random.sample(otherMains, max(int(0.8*len(otherMains)), 1)):
+            if n is not m:
+                scenesWith2.append((m,n) if m < n else (n,m))
+
+    # for s in scenesWith:
+    #     if s[0] in mainNames and s[1] in mainNames and random.random() < 0.8:
+    #         scenesWith2.append(s)
 
     scenesWith.extend(scenesWith2)
     random.shuffle(scenesWith)
@@ -239,7 +246,8 @@ def buildCharacterMap(mainCharacterCount, secondaryCharacterCount, tags, firstNa
     scenesWith = set()
 
     for m in mainCharacters:
-        for n in mainCharacters:
+        otherMains = list(filter(lambda x: m is not x, mainCharacters.keys()))
+        for n in random.sample(otherMains, max(int(0.8*len(otherMains)), 1)):
             if n is not m:
                 scenesWith.add((m,n) if m < n else (n,m))
 
